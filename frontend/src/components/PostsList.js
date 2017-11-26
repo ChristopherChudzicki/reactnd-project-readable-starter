@@ -16,6 +16,7 @@ const PostsList = (props) => {
           </Link><br/>
           Category: {post.category}<br/>
           Author: {post.author} <br/>
+          Comments: {post.commentCount} <br/>
           Time: {dateFormat(post.timestamp)}
           <VotingBooth
             votes={post.voteScore}
