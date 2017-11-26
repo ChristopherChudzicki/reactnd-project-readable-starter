@@ -8,6 +8,8 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
+// This component is modeled after examples on https://material-ui-next.com/demos/dialogs/
+
 class CommentDialog extends Component {
   static propTypes = {
     onCloseForm: PropTypes.func.isRequired,

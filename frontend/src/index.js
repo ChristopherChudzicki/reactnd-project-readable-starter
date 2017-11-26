@@ -8,6 +8,8 @@ import 'typeface-roboto'
 
 const target = document.querySelector('#root')
 
+// My use of redux-router was guided by https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f
+
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

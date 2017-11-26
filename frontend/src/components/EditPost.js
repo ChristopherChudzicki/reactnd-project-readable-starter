@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Done from 'material-ui-icons/Done';
+
+// This component is modeled after examples on https://material-ui-next.com/demos/text-fields/
 
 const styles = theme => ({
   container: {
