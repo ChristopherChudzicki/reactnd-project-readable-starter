@@ -6,7 +6,8 @@ import EditPost from '../EditPost'
 import {
   fetchActivePost,
   beginPostEdit,
-  submitEdit
+  submitEdit,
+  deletePost
   } from '../../actions/activePost'
 import {
   fetchCommentsForPost,
@@ -15,11 +16,13 @@ import {
   openEditCommentDialog,
   closeEditCommentDialog,
   editComment,
-  newComment
+  newComment,
+  deleteComment
 } from '../../actions/activeComments.js'
 import Post from '../Post'
 import Comment from '../Comment'
 import {genComparer} from '../../utils'
+import { push } from 'react-router-redux'
 
 class ActivePostView extends Component{
 
@@ -33,10 +36,6 @@ class ActivePostView extends Component{
     categories: PropTypes.array.isRequired,
     newCommentDialogIsOpen: PropTypes.bool.isRequired,
     editCommentDialogIsOpen: PropTypes.bool.isRequired,
-    closeNewCommentDialog: PropTypes.func.isRequired,
-    openNewCommentDialog: PropTypes.func.isRequired,
-    closeEditCommentDialog: PropTypes.func.isRequired,
-    openEditCommentDialog: PropTypes.func.isRequired,
     newComment: PropTypes.func.isRequired,
     editComment: PropTypes.func.isRequired,
     editCommentId: PropTypes.string,
@@ -44,7 +43,14 @@ class ActivePostView extends Component{
     fetchActivePost: PropTypes.func.isRequired,
     fetchCommentsForPost: PropTypes.func.isRequired,
     beginPostEdit: PropTypes.func.isRequired,
-    submitEdit: PropTypes.func.isRequired
+    submitEdit: PropTypes.func.isRequired,
+    closeNewCommentDialog: PropTypes.func.isRequired,
+    openNewCommentDialog: PropTypes.func.isRequired,
+    closeEditCommentDialog: PropTypes.func.isRequired,
+    openEditCommentDialog: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
+    changePage: PropTypes.func.isRequired,
+    deleteComment: PropTypes.func.isRequired
   }
 
   componentWillMount(){
@@ -53,7 +59,8 @@ class ActivePostView extends Component{
   }
 
   render(){
-    const {post, categories, comments, isInEditMode} = this.props
+    const {post, categories, comments, isInEditMode, changePage} = this.props
+    const {postId} = this.props.match.params
     const comparer = genComparer('voteScore')
 
     return (
@@ -66,7 +73,7 @@ class ActivePostView extends Component{
               initialBody={post.body}
               initialAuthor={post.author}
               initialCategory={post.category}
-              onSubmitForm={postDetails => this.props.submitEdit(postDetails, post.id)}
+              onSubmitForm={postDetails => this.props.submitEdit(postDetails, postId)}
             />
           </div>
           :
@@ -74,6 +81,13 @@ class ActivePostView extends Component{
               <Post post={post}/>
               <button onClick={this.props.beginPostEdit}>
                 Edit Post
+              </button>
+              <button onClick={() => {
+                this.props.deletePost(postId).then(
+                  () => changePage('/')
+                )}}
+              >
+                Delete Post
               </button>
             </div>
         }
@@ -93,6 +107,9 @@ class ActivePostView extends Component{
               <button onClick={()=>this.props.openEditCommentDialog(c.id)}>
                 Edit Comment
               </button>
+              <button onClick={()=>this.props.deleteComment(c.id)}>
+                Delete Comment
+              </button>
             </li>
           ))}
         </ul>
@@ -100,14 +117,14 @@ class ActivePostView extends Component{
           open={this.props.newCommentDialogIsOpen}
           onCloseForm={this.props.closeNewCommentDialog}
           onSubmitForm={this.props.newComment}
-          parentId={this.props.match.params.postId}
+          parentId={postId}
         />
         { this.props.editCommentId &&
           <CommentDialog
             open={this.props.editCommentDialogIsOpen}
             onCloseForm={this.props.closeEditCommentDialog}
             onSubmitForm={details => this.props.editComment(details, this.props.editCommentId)}
-            parentId={this.props.match.params.postId}
+            parentId={postId}
             initialBody={this.props.comments[this.props.editCommentId]['body']}
             initialAuthor={this.props.comments[this.props.editCommentId]['author']}
           />
@@ -138,7 +155,10 @@ const mapDispatchToProps = {
   openEditCommentDialog: openEditCommentDialog,
   closeEditCommentDialog: closeEditCommentDialog,
   editComment: editComment,
-  newComment: newComment
+  newComment: newComment,
+  changePage: (url) => push(url),
+  deletePost: deletePost,
+  deleteComment: deleteComment
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivePostView)

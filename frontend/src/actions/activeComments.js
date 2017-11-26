@@ -7,13 +7,15 @@ import {
   CLOSE_NEW_COMMENT_DIALOG,
   OPEN_EDIT_COMMENT_DIALOG,
   CLOSE_EDIT_COMMENT_DIALOG,
+  DELETE_COMMENT
  } from './index'
  import uuidv4 from 'uuid/v4'
 
 import {
   getComments,
   createComment as createCommentAPI,
-  editComment as editCommentAPI
+  editComment as editCommentAPI,
+  deleteComment as deleteCommentAPI
 } from '../utils/contentAPI'
 
 export const requestCommentsForPost = postId => ({
@@ -68,7 +70,7 @@ export const newComment = (commentDetails) => {
     deleted: false,
     voteScore:1,
   }
-  createCommentAPI
+
   return dispatch => {
     dispatch({
       type: CREATE_COMMENT,
@@ -91,5 +93,16 @@ export const editComment = (commentDetails, id) => {
       }
     })
     editCommentAPI(commentDetails, id)
+  }
+}
+
+export const deleteComment = (id) => {
+  return dispatch => {
+    dispatch({
+      type: DELETE_COMMENT,
+      id: id
+    })
+
+    return deleteCommentAPI(id)
   }
 }

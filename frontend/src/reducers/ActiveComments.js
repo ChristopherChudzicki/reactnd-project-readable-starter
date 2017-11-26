@@ -7,9 +7,11 @@ import {
   OPEN_EDIT_COMMENT_DIALOG,
   CLOSE_EDIT_COMMENT_DIALOG,
   EDIT_COMMENT,
-  CREATE_COMMENT
+  CREATE_COMMENT,
+  DELETE_COMMENT
 } from '../actions'
 import {voteIncrements} from '../actions/voting'
+import omit from 'lodash.omit'
 
 const initialState = {
   comments: {},
@@ -83,6 +85,11 @@ export default (state=initialState, action) => {
           ...state.comments,
           [action.commentDetails.id]: action.commentDetails
         }
+      }
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        comments: omit(state.comments, action.id)
       }
     default:
       return state

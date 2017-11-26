@@ -3,12 +3,14 @@ import {
   UPDATE_ACTIVE_POST,
   CREATE_POST,
   BEGIN_POST_EDIT,
-  END_POST_EDIT
+  END_POST_EDIT,
+  DELETE_POST
  } from './index'
 import {
   getPost,
   createPost as createPostAPI,
-  editPost as editPostAPI
+  editPost as editPostAPI,
+  deletePost as deletePostAPI
 } from '../utils/contentAPI'
 import uuidv4 from 'uuid/v4'
 
@@ -69,5 +71,16 @@ export const submitEdit =  (postDetails, id) => {
       postDetails: postDetails
     })
     editPostAPI(postDetails, id)
+  }
+}
+
+export const deletePost = (id) => {
+  return dispatch => {
+    dispatch({
+      type: DELETE_POST,
+      id: id
+    })
+
+    return deletePostAPI(id)
   }
 }
