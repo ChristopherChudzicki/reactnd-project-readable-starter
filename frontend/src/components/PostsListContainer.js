@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import { fetchPosts } from '../actions/posts'
 import { setSortBy } from '../actions/sortBy'
 import { genComparer } from '../utils'
+import {castVoteOnPost} from '../actions/voting'
+import {beginPostEdit, deletePost} from '../actions/activePost'
+import { push } from 'react-router-redux'
+
 
 class PostsListContainer extends Component {
   static propTypes = {
@@ -13,7 +17,11 @@ class PostsListContainer extends Component {
     posts: PropTypes.array.isRequired,
     sortBy: PropTypes.string.isRequired,
     setSortBy: PropTypes.func.isRequired,
-    categoryFilter: PropTypes.string
+    categoryFilter: PropTypes.string,
+    castVoteOnPost: PropTypes.func.isRequired,
+    beginPostEdit: PropTypes.func.isRequired,
+    changePage: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired
   }
 
   componentWillMount(){
@@ -47,20 +55,32 @@ class PostsListContainer extends Component {
             </option>
           ) )}
         </select>
-        <PostsList posts={filteredPosts.sort(comparer)}></PostsList>
+        <PostsList
+          posts={filteredPosts.sort(comparer)}
+          castVoteOnPost={this.props.castVoteOnPost}
+          beginPostEdit={(id)=>{
+            this.props.changePage(`/post/${id}`)
+            this.props.beginPostEdit()
+          }}
+          deletePost={this.props.deletePost}
+        />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  posts: state.posts.list,
+  posts: Object.values(state.posts.list),
   sortBy: state.sortBy
 })
 
 const mapDispatchToProps = {
   fetchPosts: fetchPosts,
-  setSortBy: setSortBy
+  setSortBy: setSortBy,
+  castVoteOnPost:castVoteOnPost,
+  beginPostEdit:beginPostEdit,
+  changePage: (url) => push(url),
+  deletePost: deletePost
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsListContainer)

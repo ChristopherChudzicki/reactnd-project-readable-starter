@@ -13,10 +13,16 @@ export const fetchPosts = () => {
     })
 
     getAllPosts().then(
-      res => dispatch({
-        type: SET_POSTS,
-        posts: res
-      })
+      res => {
+        const posts = res.reduce( (obj, item) => {
+          obj[item.id] = item
+          return obj
+        }, {})
+        dispatch({
+          type: SET_POSTS,
+          posts: posts
+        })
+      }
     )
 
   }
