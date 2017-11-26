@@ -1,5 +1,10 @@
-import { getAllPosts } from '../utils/contentAPI'
-import { REQUEST_POSTS, SET_POSTS } from './index'
+import {
+  getAllPosts
+} from '../utils/contentAPI'
+import {
+  REQUEST_POSTS,
+  SET_POSTS,
+} from './index'
 
 export const fetchPosts = () => {
   return dispatch => {
