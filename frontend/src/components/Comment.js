@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {castVoteOnComment} from '../actions/voting'
 import VotingBooth from './VotingBooth'
+import dateFormat from 'dateformat'
 
 const Comment = props => {
   const {id, voteScore, author, timestamp, body, castVoteOnComment} = props
   return (
     <div>
-      <h4>{author} at {timestamp} <br/></h4>
+      <h4>{author} at {dateFormat(timestamp)} <br/></h4>
       <p>{body}</p>
       <VotingBooth
         votes={voteScore}

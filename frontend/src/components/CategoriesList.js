@@ -6,13 +6,16 @@ const CategoriesList = (props) => {
   const {categories} = props
 
   return (
-    <ul>
-      {categories.map(cat => (
-        <li key={cat.name}>
-          <Link to={`/category/${cat.path}`}>{cat.name}</Link>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h2>Categories</h2>
+      <ul>
+        {categories.map(cat => (
+          <li key={cat.name}>
+            <Link to={`/category/${cat.path}`}>{cat.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

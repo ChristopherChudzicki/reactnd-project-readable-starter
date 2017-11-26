@@ -33,6 +33,7 @@ class PostsListContainer extends Component {
 
     return (
       <div>
+        <h2>Posts</h2>
         Sort by
         <select
           name="sorter"

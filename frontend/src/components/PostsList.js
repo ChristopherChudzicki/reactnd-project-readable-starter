@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import dateFormat from 'dateformat'
 
 const PostsList = (props) => {
   const {posts} = props
@@ -13,7 +14,7 @@ const PostsList = (props) => {
           Category: {post.category}<br/>
           Votes: {post.voteScore} <br/>
           Author: {post.author} <br/>
-          Time: {post.timestamp}
+          Time: {dateFormat(post.timestamp)}
         </li>
       ))}
     </ul>

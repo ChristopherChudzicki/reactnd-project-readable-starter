@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import VotingBooth from './VotingBooth'
 import {connect} from 'react-redux'
 import {castVoteOnPost} from '../actions/voting'
+import dateFormat from 'dateformat'
 
 const Post = (props) => {
   const {
@@ -14,6 +15,7 @@ const Post = (props) => {
     <div>
       <h1>{post.title}</h1>
       <h3>By {post.author}</h3>
+      <h4>on {dateFormat(post.timestamp)}</h4>
       <p>{post.body}</p>
       <VotingBooth
         votes={post.voteScore}
