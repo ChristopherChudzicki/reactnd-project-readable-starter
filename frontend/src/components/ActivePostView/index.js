@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import CommentDialog from '../CommentDialog'
 import EditPost from '../EditPost'
+import NoMatch from '../NoMatch'
 import {
   fetchActivePost,
   beginPostEdit,
@@ -23,6 +24,8 @@ import Post from '../Post'
 import Comment from '../Comment'
 import {genComparer} from '../../utils'
 import { push } from 'react-router-redux'
+
+const isEmpty = obj => Object.getOwnPropertyNames(obj).length === 0
 
 class ActivePostView extends Component{
 
@@ -62,6 +65,11 @@ class ActivePostView extends Component{
     const {post, categories, comments, isInEditMode, changePage} = this.props
     const {postId} = this.props.match.params
     const comparer = genComparer('voteScore')
+
+    if (post.deleted || isEmpty(post) ){
+      console.log(isEmpty(post))
+      return <NoMatch/>
+    }
 
     return (
       <div>
