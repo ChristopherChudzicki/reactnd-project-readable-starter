@@ -53,7 +53,7 @@ class ActivePostView extends Component{
     deleteComment: PropTypes.func.isRequired
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchActivePost(this.props.match.params.postId)
     this.props.fetchCommentsForPost(this.props.match.params.postId)
   }

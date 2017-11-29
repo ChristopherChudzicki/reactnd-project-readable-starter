@@ -24,7 +24,7 @@ class PostsListContainer extends Component {
     deletePost: PropTypes.func.isRequired
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchPosts();
   }
 
