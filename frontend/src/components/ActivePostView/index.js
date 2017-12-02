@@ -26,6 +26,7 @@ import {genComparer} from '../../utils'
 import { push } from 'react-router-redux'
 
 const isEmpty = obj => Object.getOwnPropertyNames(obj).length === 0
+const isNotLoaded = post => post.deleted || post.error || isEmpty(post)
 
 class ActivePostView extends Component{
 
@@ -66,8 +67,7 @@ class ActivePostView extends Component{
     const {postId} = this.props.match.params
     const comparer = genComparer('voteScore')
 
-    if (post.deleted || isEmpty(post) ){
-      console.log(isEmpty(post))
+    if ( isNotLoaded(post) ){
       return <NoMatch/>
     }
 
