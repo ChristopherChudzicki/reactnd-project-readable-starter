@@ -58,16 +58,17 @@ class ActivePostView extends Component{
   }
 
   componentDidMount(){
-    this.props.fetchActivePost(this.props.match.params.postId)
-    this.props.fetchCommentsForPost(this.props.match.params.postId)
+    const {postId, categoryPath} = this.props.match.params
+    this.props.fetchActivePost(postId)
+    this.props.fetchCommentsForPost(postId)
   }
 
   render(){
     const {post, categories, comments, isInEditMode, changePage} = this.props
-    const {postId} = this.props.match.params
+    const {postId, categoryPath} = this.props.match.params
     const comparer = genComparer('voteScore')
 
-    if ( isNotLoaded(post) ){
+    if ( isNotLoaded(post) || post.category !== categoryPath ){
       return <NoMatch/>
     }
 

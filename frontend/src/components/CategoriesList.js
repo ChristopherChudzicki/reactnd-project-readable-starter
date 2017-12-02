@@ -11,7 +11,7 @@ const CategoriesList = (props) => {
       <ul>
         {categories.map(cat => (
           <li key={cat.name}>
-            <Link to={`/category/${cat.path}`}>{cat.name}</Link>
+            <Link to={`/${cat.path}`}>{cat.name}</Link>
           </li>
         ))}
       </ul>

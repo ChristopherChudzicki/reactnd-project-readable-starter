@@ -32,8 +32,8 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route path="/category/:categoryPath" component={CategoryView} />
-            <Route path="/post/:postId" component={ActivePostView} />
+            <Route path="/:categoryPath" component={CategoryView} />
+            <Route path="/:categoryPath/:postId" component={ActivePostView} />
             <Route path="/newpost" component={NewPostView} />
             <Route component={NoMatch}/>
           </Switch>
