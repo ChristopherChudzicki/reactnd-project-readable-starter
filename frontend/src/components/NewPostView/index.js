@@ -12,7 +12,7 @@ const NewPostView = (props) => {
         categories={props.categories}
         // This is a bit silly: changeing page is going to make an API call to get the post from the server, but I already have all of the post data.
         onSubmitForm={ (post) => props.createPost(post).then(
-            r => props.changePage(`post/${r.id}`)
+            r => props.changePage(`${r.category}/${r.id}`)
           )
         }
       />
