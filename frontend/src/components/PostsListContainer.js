@@ -58,8 +58,8 @@ class PostsListContainer extends Component {
         <PostsList
           posts={filteredPosts.sort(comparer)}
           castVoteOnPost={this.props.castVoteOnPost}
-          beginPostEdit={(id)=>{
-            this.props.changePage(`/post/${id}`)
+          beginPostEdit={(category, id)=>{
+            this.props.changePage(`/${category}/${id}`)
             this.props.beginPostEdit()
           }}
           deletePost={this.props.deletePost}

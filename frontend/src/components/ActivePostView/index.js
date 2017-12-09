@@ -82,7 +82,13 @@ class ActivePostView extends Component{
               initialBody={post.body}
               initialAuthor={post.author}
               initialCategory={post.category}
-              onSubmitForm={postDetails => this.props.submitEdit(postDetails, postId)}
+              onSubmitForm={postDetails => {
+                this.props.submitEdit(postDetails, postId).then(
+                  r => {
+                    (r.category !== categoryPath) && changePage(`/${r.category}/${postId}`)
+                  }
+                )
+              }}
             />
           </div>
           :

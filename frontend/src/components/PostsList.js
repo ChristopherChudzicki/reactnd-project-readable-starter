@@ -23,7 +23,7 @@ const PostsList = (props) => {
             upAction={() => castVoteOnPost(post.id, 'upVote')}
             downAction={() => castVoteOnPost(post.id, 'downVote')}
           />
-          <button onClick={()=>props.beginPostEdit(post.id)}>
+          <button onClick={()=>props.beginPostEdit(post.category, post.id)}>
             Edit Post
           </button>
           <button onClick={()=>props.deletePost(post.id)}>

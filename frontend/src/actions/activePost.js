@@ -70,7 +70,7 @@ export const submitEdit =  (postDetails, id) => {
       type: UPDATE_ACTIVE_POST,
       postDetails: postDetails
     })
-    editPostAPI(postDetails, id)
+    return editPostAPI(postDetails, id)
   }
 }
 
