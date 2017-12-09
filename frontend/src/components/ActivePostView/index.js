@@ -58,7 +58,7 @@ class ActivePostView extends Component{
   }
 
   componentDidMount(){
-    const {postId, categoryPath} = this.props.match.params
+    const {postId} = this.props.match.params
     this.props.fetchActivePost(postId)
     this.props.fetchCommentsForPost(postId)
   }

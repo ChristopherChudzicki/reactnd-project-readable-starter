@@ -37,7 +37,7 @@ CategoryView.propTypes = {
 
 const mapStateToProps = state => ({
   categories: state.categories.list,
-  posts: state.posts.list
+  posts: Object.values(state.posts.list),
 })
 
 export default connect(mapStateToProps, null)(CategoryView)
