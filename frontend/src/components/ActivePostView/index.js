@@ -106,6 +106,9 @@ class ActivePostView extends Component{
               </button>
             </div>
         }
+        <span>
+          Total Comments {post.commentCount}
+        </span>
         <button onClick={this.props.openNewCommentDialog}>
           New Comment
         </button>
